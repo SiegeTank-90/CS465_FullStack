@@ -13,13 +13,22 @@ export class TripDataService {
 
 
   constructor(private http: HttpClient) { }
+    url = 'http://localhost:3000/api/trips';
+  
 
   getTrips(): Observable<Trip[]> {
-  let apiURL = 'http://localhost:3000/api/trips';
+    return this.http.get<Trip[]>(this.url);
+    console.log('Fetching trips from API...');
 
-  console.log('Fetching trips from API...');
-    return this.http.get<Trip[]>(apiURL);
+  }
+
+  addTrip(formData: Trip): Observable<Trip> {
+    return this.http.post<Trip>(this.url, formData);
+  }
+
+
     
   
-  }
+  
+  
 }

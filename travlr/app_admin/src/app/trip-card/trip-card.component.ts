@@ -16,7 +16,7 @@ export class TripCardComponent implements OnInit {
   
 
   ngOnInit(): void {
-    //console.log(this.trip);
+    console.log(this.trip);
   }
 
 }

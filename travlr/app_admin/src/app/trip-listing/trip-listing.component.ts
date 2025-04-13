@@ -5,6 +5,8 @@ import { TripCardComponent } from '../trip-card/trip-card.component';
 import { Trip } from '../models/trips';
 import { TripDataService } from '../services/trip-data.service';
 
+import{ Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-trip-listing',
@@ -14,17 +16,33 @@ import { TripDataService } from '../services/trip-data.service';
   styleUrl: './trip-listing.component.css',
   providers: [TripDataService]
 })
+
 export class TripListingComponent implements OnInit {
 
   trips!: Trip[];
   message: string = "";
   
-  constructor(private tripDataService: TripDataService) {
-    
-    console.log('trip-listing constructor');
+  constructor(
+    private tripDataService: TripDataService, 
+    private router: Router) {
+            console.log('trip-listing constructor');
     } 
     
-  
+    /**
+     *  uses a button to add trips to the website
+     * 
+     * addTrip
+ :      this.router.navigate(['add-trip'])
+    uses a button to add trips to the website
+ */
+    public addTrip(): void {
+        this.router.navigate(['add-trip']);
+      
+    }
+    public getTrips(): void {
+        this.tripDataService.getTrips()
+    }
+    
     
 
 
@@ -50,7 +68,7 @@ export class TripListingComponent implements OnInit {
 
     ngOnInit(): void {
       console.log('ngOnInit');
-      this.getStuff();
+      //this.getStuff();
     }
 
 }
