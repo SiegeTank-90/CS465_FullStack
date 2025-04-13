@@ -68,7 +68,7 @@ export class TripListingComponent implements OnInit {
 
     ngOnInit(): void {
       console.log('ngOnInit');
-      //this.getStuff();
+      this.getStuff();
     }
 
 }

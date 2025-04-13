@@ -12,7 +12,7 @@ const tripsList = async(req , res) => {
         .exec();
 
     //uncomment the following line to show results of query on the console
-    //console.log(q);
+    console.log(q);
 
     if (!q)  { // Database returned no data
         return res
@@ -42,14 +42,14 @@ const tripsAddTrip = async(req, res) => {
 
 
 
-    try { // Database returned no data
+    try { // attmpt to save the new trip
             console.log(req.body);
 
             const q = await newTrip.save();
             return res
                 .status(201)
                 .json(q);
-        } catch(err) { // return result trip list
+        } catch(err) { // returns error if save fails
             console.log(err);
             return res
                 .status(400)
@@ -64,6 +64,7 @@ const tripsAddTrip = async(req, res) => {
 
 const tripsUpdateTrip = async(req, res) => {
 
+    // uncoment for debugging purposes
     console.log(req.params);
     console.log(req.body);
 
@@ -80,7 +81,9 @@ const tripsUpdateTrip = async(req, res) => {
                 image: req.body.image, 
                 description: req.body.description
             }
-        ).exec
+        ).exec();
+
+        console.log(q);
 
     if (!q)
     {   // Database returned no data
@@ -88,10 +91,15 @@ const tripsUpdateTrip = async(req, res) => {
             .status(404)
             .json(q);    
     } else {
+        console.log(q);
+
         return res
-            .res(202)
+            .status(201)
             .json(q);
+                console.log(q);
+
     }
+    
 
 };
 
