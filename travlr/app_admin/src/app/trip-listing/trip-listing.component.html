@@ -1,6 +1,12 @@
 <!-- <pre>{{trips | json}}</pre> -->
- <div>
-    <button (click)="addTrip()" clas="btn btn-info">Add Trip</button>
+
+<div>
+    @if (isLoggedIn()) {
+        <button (click)="addTrip()" clas="btn btn-info">Add Trip</button>
+    }
+    @else {
+        <div></div>
+    }
  </div>
 <div class="row">
     <div *ngFor="let trip of trips" class="col-md-4">

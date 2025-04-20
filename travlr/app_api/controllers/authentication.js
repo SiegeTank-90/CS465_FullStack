@@ -1,12 +1,14 @@
-const mongoose = require('mongoose');
 const passport = require('passport');
+const mongoose = require('mongoose');
 const User = require('../models/user'); // Create a User model instance
 
 const register = async (req, res) => {
     // Validate message to insure that all params are present
 
     if (!req.body.name || !req.body.email || !req.body.password) {
-        return res.status(400).json({ message: 'All fields required' });
+        return res
+        .status(400)
+        .json({ message: 'All fields required' });
     }
 
     const user = new User(

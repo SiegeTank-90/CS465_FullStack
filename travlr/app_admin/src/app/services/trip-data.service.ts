@@ -1,6 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { User } from '../models/user';
+import { AuthResponse } from '../models/AuthResponse';
+import { BROWSER_STORAGE } from '../storage';
+
 
 
 import { Trip } from '../models/trips';
@@ -13,14 +17,17 @@ import { Trip } from '../models/trips';
 export class TripDataService {
 
 
-  constructor(private http: HttpClient) { }
-    url = 'http://localhost:3000/api/trips';
-  
+  constructor(
+    private http: HttpClient,
+    @Inject(BROWSER_STORAGE) private storage: Storage
+  ) { }
+  url = 'http://localhost:3000/api/';
 
-  getTrips() : Observable<Trip[]> {
+
+  getTrips(): Observable<Trip[]> {
     console.log('Fetching trips from API...');
-    
-    return this.http.get<Trip[]>(this.url);
+
+    return this.http.get<Trip[]>(this.url + 'trips');
 
   }
 
@@ -30,19 +37,37 @@ export class TripDataService {
     return this.http.post<Trip>(this.url, formData);
   }
 
-  getTrip(tripCode: string) : Observable<Trip[]> {
+  getTrip(tripCode: string): Observable<Trip[]> {
     //console.long('Inside TripDataService getTrip() singular method...');
     return this.http.get<Trip[]>(this.url + '/' + tripCode);
   }
 
-  updateTrip(formData: Trip) : Observable<Trip> {
+  updateTrip(formData: Trip): Observable<Trip> {
     //console.long('Inside TripDataService updateTrip(form) method...');
     return this.http.put<Trip>(this.url + '/' + formData.code, formData);
   }
 
-    
-    
-  
-  
+  // Call to our /login endpoint, returns JWT
+  login(user: User, passwd: string): Observable<AuthResponse> {
+    // console.log('Inside TripDataService::login');
+    return this.handleAuthAPICall('login', user, passwd);
+  }
+  // Call to our /register endpoint, creates user and returns JWT
+  register(user: User, passwd: string): Observable<AuthResponse> {
+    // console.log('Inside TripDataService::register');
+    return this.handleAuthAPICall('register', user, passwd);
+  }
+  // helper method to process both login and register methods
+  handleAuthAPICall(endpoint: string, user: User, passwd: string):
+    Observable<AuthResponse> {
+    // console.log('Inside TripDataService::handleAuthAPICall');
+    let formData = {
+      name: user.name,
+      email: user.email,
+      password: passwd
+    };
+    return this.http.post<AuthResponse>(this.url + '/' + endpoint,
+      formData);
+    }  
   
 }

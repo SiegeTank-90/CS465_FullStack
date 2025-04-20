@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken'); // Enable JSON Web Tokens
 const tripsController = require('../controllers/trips');
 const authController = require('../controllers/authentication');
 
-router.route("./register").post(authController.register); // POST Method routes register
+router.route("/register").post(authController.register); // POST Method routes register
 
 //define route for login endpoint
 router

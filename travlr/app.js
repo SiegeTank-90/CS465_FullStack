@@ -19,15 +19,16 @@ require('./app_api/models/db'); // bring in the database
 
 var app = express();
 
+// Wire in our authentication module
+var passport = require('passport');
+require('./app_api/config/passport');
+
+
 // view engine setup
 app.set('views', path.join(__dirname,'app_server', 'views'));
 
 // reister handlebars partials (https://ww.nmjs.com/package/hbs)
 handlebars.registerPartials(__dirname + '/app_server/views/partials');
-
-// Wire in our authentication module
-
-
 
 app.set('view engine', 'hbs');
 
@@ -35,6 +36,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
+
 
 // Enable CORS
 app.use(function(req, res, next) {
@@ -51,8 +55,6 @@ app.use('/travel', travelRouter);
 app.use('/api', apiRouter)
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(passport.initialize());
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

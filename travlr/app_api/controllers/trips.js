@@ -8,6 +8,7 @@ const Model = mongoose.model('trips');
 
 const tripsList = async(req , res) => {
     const q = await Model
+
         .find({})  // All records
         .exec();
 
