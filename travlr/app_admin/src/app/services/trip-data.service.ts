@@ -21,13 +21,13 @@ export class TripDataService {
     private http: HttpClient,
     @Inject(BROWSER_STORAGE) private storage: Storage
   ) { }
-  url = 'http://localhost:3000/api/';
+  url = 'http://localhost:3000/api';
 
 
   getTrips(): Observable<Trip[]> {
     console.log('Fetching trips from API...');
 
-    return this.http.get<Trip[]>(this.url + 'trips');
+    return this.http.get<Trip[]>(this.url + '/trips');
 
   }
 
@@ -43,7 +43,7 @@ export class TripDataService {
   }
 
   updateTrip(formData: Trip): Observable<Trip> {
-    //console.long('Inside TripDataService updateTrip(form) method...');
+    console.log('Inside TripDataService updateTrip(form) method...');
     return this.http.put<Trip>(this.url + '/' + formData.code, formData);
   }
 

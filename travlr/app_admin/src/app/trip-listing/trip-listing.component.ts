@@ -12,7 +12,7 @@ import{ Router } from '@angular/router';
 @Component({
   selector: 'app-trip-listing',
   standalone: true,
-  imports: [CommonModule, TripCardComponent, AuthenticationService],
+  imports: [CommonModule, TripCardComponent],
   templateUrl: './trip-listing.component.html',
   styleUrl: './trip-listing.component.css',
   providers: [TripDataService]
